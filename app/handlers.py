@@ -12,7 +12,7 @@ router = Router()
 async def on_timer_triggered(bot):
     users = await ConnectDB.get_users()
     for user in users:
-        await bot.send_message(chat_id=int(user), text="Пора сделать упражнение для глаз")
+        await bot.send_message(chat_id=int(user[0]), text="Пора сделать упражнение для глаз")
 
 
 @router.message(CommandStart())
