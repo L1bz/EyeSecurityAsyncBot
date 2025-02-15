@@ -53,4 +53,4 @@ class ConnectDB:
     async def get_users(self):
         async with self.db.execute("""SELECT user_id FROM user WHERE status= true""") as cursor:
             users = await cursor.fetchall()
-            return users
+            return list(users[0])

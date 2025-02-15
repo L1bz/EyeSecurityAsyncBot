@@ -16,14 +16,19 @@ async def close():
 
 async def main():
     await ConnectDB.start_db()
-    await asyncio.create_task(on_timer_triggered(bot))
-    await timer()
+    
+    # Запускаем таймер в фоновом режиме
+    asyncio.create_task(timer(bot))
+    
+    # Включаем маршрутизатор
     dp.include_router(router)
+    
     try:
+        # Запуск опроса бота
         await dp.start_polling(bot)
     except KeyboardInterrupt:
-        await close()
-
+        print("Остановка по запросу пользователя.")
+        await close()  # Закрытие соединений и завершение работы
 
 if __name__ == '__main__':
     try:

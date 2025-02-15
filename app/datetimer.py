@@ -1,9 +1,10 @@
 import asyncio
-import datetime
+from datetime import datetime
+from app.handlers import on_timer_triggered
 
-async def timer():
+async def timer(bot):
     while True:
         current_time = datetime.now().time()
-        if current_time.second == 0 or current_time.second == 10 or current_time.second == 20 or current_time.second == 30 or current_time.second == 40 or current_time.second == 50:
-            return True
+        if current_time.minute in {00, 30} and current_time.second == 10:
+            await on_timer_triggered(bot)
         await asyncio.sleep(1)
